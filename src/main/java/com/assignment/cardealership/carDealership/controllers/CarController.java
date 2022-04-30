@@ -32,7 +32,7 @@ public class CarController {
     }
 
     @GetMapping(value = "{carId}")
-    public Car getCarById(@PathVariable(value="carId") Long carId) {
+    public Car getCarById(final@PathVariable(value="carId") Long carId) {
         return carRepository.findById(carId).get();
     }
     
