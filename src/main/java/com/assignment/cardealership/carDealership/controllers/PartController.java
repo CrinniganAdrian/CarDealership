@@ -56,7 +56,7 @@ public class PartController {
             throw new InvalidRequestException("Part or ID must not be null!");
         }
         Optional<Part> optionalPart = partRepository.findById(part.getPartId());
-        if (optionalPart.isEmpty()) {
+        if (!optionalPart.isPresent()) {
             throw new NotFoundException();
         }
         Part existingPart = optionalPart.get();
@@ -71,7 +71,7 @@ public class PartController {
     
     @DeleteMapping(value = "{partId}")
     public void deletePartById(@PathVariable(value = "partId") Long partId) throws NotFoundException {
-        if (partRepository.findById(partId).isEmpty()) {
+        if (!partRepository.findById(partId).isPresent()) {
             throw new NotFoundException();
         }
         partRepository.deleteById(partId);

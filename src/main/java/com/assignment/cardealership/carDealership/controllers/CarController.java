@@ -56,7 +56,7 @@ public class CarController {
             throw new InvalidRequestException("Car or ID must not be null!");
         }
         Optional<Car> optionalCar = carRepository.findById(car.getCarId());
-        if (optionalCar.isEmpty()) {
+        if (!optionalCar.isPresent()) {
             throw new NotFoundException();
         }
         Car existingCar = optionalCar.get();
@@ -71,7 +71,7 @@ public class CarController {
     
     @DeleteMapping(value = "{carId}")
     public void deleteCarById(@PathVariable(value = "carId") Long carId) throws NotFoundException {
-        if (carRepository.findById(carId).isEmpty()) {
+        if (!carRepository.findById(carId).isPresent()) {
             throw new NotFoundException();
         }
         carRepository.deleteById(carId);

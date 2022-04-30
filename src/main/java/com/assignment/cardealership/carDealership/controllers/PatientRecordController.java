@@ -56,7 +56,7 @@ public class PatientRecordController {
             throw new InvalidRequestException("PatientRecord or ID must not be null!");
         }
         Optional<PatientRecord> optionalRecord = patientRecordRepository.findById(patientRecord.getPatientId());
-        if (optionalRecord.isEmpty()) {
+        if (!optionalRecord.isPresent()) {
             throw new NotFoundException();
         }
         PatientRecord existingPatientRecord = optionalRecord.get();
@@ -72,7 +72,7 @@ public class PatientRecordController {
     
     @DeleteMapping(value = "{patientId}")
     public void deletePatientById(@PathVariable(value = "patientId") Long patientId) throws NotFoundException {
-        if (patientRecordRepository.findById(patientId).isEmpty()) {
+        if (!patientRecordRepository.findById(patientId).isPresent()) {
             throw new NotFoundException();
         }
         patientRecordRepository.deleteById(patientId);
